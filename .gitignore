@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local migration notes (may contain sensitive config examples)
+FIREBASE_MIGRATION.md
