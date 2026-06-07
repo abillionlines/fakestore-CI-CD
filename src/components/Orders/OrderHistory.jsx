@@ -1,3 +1,10 @@
+/*
+OrderHistory
+- Displays a list of past orders for the currently signed-in user.
+- Fetches orders from the Firestore `orders` collection filtered by `userId` via React Query.
+- Requires authentication; shows a login prompt if no user is present.
+- Clicking an order row opens OrderDetail for full product breakdown.
+*/
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useQuery } from "@tanstack/react-query";
@@ -27,13 +34,19 @@ const OrderHistory = () => {
               <div>
                 <div className="font-semibold">Order: {o.id}</div>
                 <div className="text-sm text-gray-500">
-                  {new Date(o.createdAt?.toDate?.() || o.createdAt || 0).toLocaleString()}
+                  {new Date(
+                    o.createdAt?.toDate?.() || o.createdAt || 0,
+                  ).toLocaleString()}
                 </div>
               </div>
               <div className="text-right">
-                <div className="font-bold">${o.totalPrice?.toFixed?.(2) || "-"}</div>
+                <div className="font-bold">
+                  ${o.totalPrice?.toFixed?.(2) || "-"}
+                </div>
                 <button
-                  onClick={() => setSelectedOrder(selectedOrder === o.id ? null : o.id)}
+                  onClick={() =>
+                    setSelectedOrder(selectedOrder === o.id ? null : o.id)
+                  }
                   className="mt-2 text-sm text-blue-600"
                 >
                   {selectedOrder === o.id ? "Hide details" : "View details"}

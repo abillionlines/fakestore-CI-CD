@@ -23,5 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Local migration notes (may contain sensitive config examples)
+# Local notes and sensitive files (not committed)
 FIREBASE_MIGRATION.md
+WHATS_CHANGED.md
+serviceAccount.json

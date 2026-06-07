@@ -2,10 +2,6 @@
 Products API helpers
 */
 
-
-
-
-
 /*
 Firestore-backed products API
 - Replaces Axios/FakeStore with Firestore reads/writes.
@@ -24,10 +20,12 @@ import {
 } from "firebase/firestore";
 
 const handleError = (err) => {
-  const message = err?.message || "Firestore request failed";
-  const e = new Error(message);
-  if (err?.code) e.code = err.code;
-  throw e;
+  // Log original error for easier debugging in browser console
+  // then rethrow the original error so React Query shows accurate message.
+  // This avoids swallowing the stack trace.
+  // eslint-disable-next-line no-console
+  console.error("Firestore API error:", err);
+  throw err;
 };
 
 export const getProducts = async () => {
@@ -92,6 +90,25 @@ export const getCategories = async () => {
       if (c) set.add(c);
     });
     return Array.from(set);
+  } catch (err) {
+    handleError(err);
+  }
+};
+
+// Compatibility wrappers expected by UI components
+export const fetchProducts = async (category = "all") => {
+  try {
+    const products = await getProducts();
+    if (!category || category === "all") return products;
+    return products.filter((p) => p.category === category);
+  } catch (err) {
+    handleError(err);
+  }
+};
+
+export const fetchCategories = async () => {
+  try {
+    return await getCategories();
   } catch (err) {
     handleError(err);
   }

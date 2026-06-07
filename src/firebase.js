@@ -1,3 +1,9 @@
+/*
+firebase.js
+- Initializes the Firebase app using environment variables defined in .env.local.
+- Exports `auth` (Firebase Authentication) and `db` (Firestore) for use across the app.
+- All VITE_FIREBASE_* keys must be set before starting the dev server.
+*/
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";

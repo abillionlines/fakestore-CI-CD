@@ -23,6 +23,7 @@ const ProductList = () => {
     data: products,
     isLoading: isProductsLoading,
     isError,
+    error,
   } = useQuery({
     queryKey: ["products", selectedCategory],
     queryFn: () => fetchProducts(selectedCategory),
@@ -41,6 +42,9 @@ const ProductList = () => {
       <div className="text-center py-10">
         <p className="text-red-500 font-medium">
           Error loading products. Please try again later.
+        </p>
+        <p className="text-red-400 text-sm mt-2 font-mono">
+          {error?.message || String(error)}
         </p>
       </div>
     );
