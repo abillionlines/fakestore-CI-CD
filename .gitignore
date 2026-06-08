@@ -27,3 +27,4 @@ dist-ssr
 FIREBASE_MIGRATION.md
 WHATS_CHANGED.md
 serviceAccount.json
+.vercel
